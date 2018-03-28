@@ -6,6 +6,27 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const rides = new Schema({
+    driver: {
+      first_name: {
+        type: String,
+        // required: true
+      },
+      last_name: {
+        type: String,
+        // required: true
+      },
+      car: {
+        seats: {
+          type: Number,
+          // required: true,
+          min: 1
+        },
+        description: {
+          type: String,
+          // required: true
+        }
+      }
+    },
     departs: {
       type: Date,
       required: 'You must specify your departure date.'
@@ -33,28 +54,7 @@ module.exports = function (app) {
         type: String,
         // required: true
       }
-    }],
-    driver: {
-      first_name: {
-        type: String,
-        // required: true
-      },
-      last_name: {
-        type: String,
-        // required: true
-      },
-      car: {
-        seats: {
-          type: Number,
-          // required: true,
-          min: 1
-        },
-        description: {
-          type: String,
-          // required: true
-        }
-      }
-    }
+    }]
   }, {
     timestamps: true, // adds createdAt and updatedAt fields automatically
     minimize: false   // will make sure all properties exist, even if null
