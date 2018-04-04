@@ -24,6 +24,20 @@ server.on('listening', () =>
 );
 
 // To set up SSL:
+// Update /etc/ssl/openssl.cnf in the virtual machine with the following:
+// (from https://stackoverflow.com/questions/27294589/creating-self-signed-certificate-for-domain-and-subdomains-neterr-cert-commo)
+//
+// [ v3_req ]
+// basicConstraints = CA:FALSE
+// keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+// subjectAltName = @alt_names
+
+// [ alt_names ]
+
+// DNS.1 = jmuscoop.test
+// DNS.2 = api.jmuscoop.test
+// DNS.3 = *.jmuscoop.test
+//
 // see: https://www.kevinleary.net/self-signed-trusted-certificates-node-js-express-js/
 // $ openssl genrsa -out api.jmuscoop.test.key 2048
-// $ openssl req -new -x509 -key api.jmuscoop.test.key -out api.jmuscoop.test.cert -days 3650 -subj /CN=api.jmuscoop.test
+// $ openssl req -new -x509 -key api.jmuscoop.test.key -out api.jmuscoop.test.cert -days 3650 -subj /CN=api.jmuscoop.test -extensions v3_req
