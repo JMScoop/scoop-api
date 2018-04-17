@@ -7,6 +7,10 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const rides = new Schema({
     driver: {
+      id: {
+        type: string,
+        // required: true
+      },
       first_name: {
         type: String,
         // required: true
